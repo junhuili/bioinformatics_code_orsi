@@ -1,0 +1,18 @@
+#Make a regression of gene expression category vs. indepedent variable (e.g. sediment depth), and plot 95% confidence interval onto plot with dashed red line.
+
+> repair <- c (0.79, 0.862, 0.9, 1.2, 1.2, 1.5)
+> depth <- c (5, 30, 50, 70, 91, 159)
+> plot(depth~repair)
+> mod1 <- lm(depth~repair)
+> predict(mod1, interval="confidence")
+> a<-predict(mod1, interval="confidence")
+> plot(depth~repair)
+> abline(mod1)
+> lines(repair, a[,2], lty=2)
+> lines(repair, a[,3], lty=2)
+> newx <- seq(min(repair), max(repair), 0.1)
+> a<-predict(mod1, newdata=data.frame(repair=newx), interval="confidence")
+> plot (repair, depth, cex=1.7, pch=16)
+> abline(mod1)
+> lines(newx, a[,2], lty=3, col ="red")
+> lines(newx, a[,3], lty=3, col ="red")
